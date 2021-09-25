@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Button, Header, Segment, FormField } from "semantic-ui-react";
+import { Button, Header, Segment, FormField, Label } from "semantic-ui-react";
 import cuid from "cuid";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { createEvent, updateEvent } from "../eventActions";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from 'yup';
 
 export default function EventForm({ match, history }) {
   const dispatch = useDispatch();
@@ -22,39 +23,39 @@ export default function EventForm({ match, history }) {
     date: "",
   };
 
-  const [values, setValues] = useState(initialValues);
+  const validationSchema = Yup.object({
+    title: Yup.string().required('You must provide a title')
+  })
 
-  function handleFormSubmit() {
-    selectedEvent
-      ? dispatch(updateEvent({ ...selectedEvent, ...values }))
-      : dispatch(
-          createEvent({
-            ...values,
-            id: cuid(),
-            hostedBy: "Bob",
-            attendees: [],
-            hostPhotoURL: "/assets/user.png",
-          })
-        );
-    history.push("/events");
-  }
+  // function handleFormSubmit() {
+  //   selectedEvent
+  //     ? dispatch(updateEvent({ ...selectedEvent, ...values }))
+  //     : dispatch(
+  //         createEvent({
+  //           ...values,
+  //           id: cuid(),
+  //           hostedBy: "Bob",
+  //           attendees: [],
+  //           hostPhotoURL: "/assets/user.png",
+  //         })
+  //       );
+  //   history.push("/events");
+  // }
 
-  function handleInputChange(e) {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
-  }
-
+  
   return (
     <Segment clearing>
       <Header content={selectedEvent ? "Edit the event" : "Create new event"} />
       <Formik
         initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={values => console.log(values)}
       >
       
           <Form className='ui form'>
             <FormField>
               <Field name='title' placeholder='Event title' />
+              <ErrorMessage name='title' render={error => <Label basic color='red' content={error} />} />
             </FormField>
             <FormField>
               <Field name='category' placeholder='Category' />
