@@ -1,9 +1,12 @@
-import { SIGN_OUT_USER } from "./authConstants"
+import { SIGN_IN_USER, SIGN_OUT_USER } from "./authConstants"
 
 const initialState = {
-    authenticated: false,
-    currentUser: null
-}
+    authenticated: true,
+    currentUser: {
+        email: 'bob@test.com',
+        photoURL: '/assets/user.png'
+    },
+};
 
 export default function authReducer(state = initialState, {type, payload}) {
     switch (type) {
