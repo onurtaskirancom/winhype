@@ -32,6 +32,7 @@ export default function Sandbox() {
       />
       <div style={{marginTop: 15}}>
         <TestPlaceInput />
+        <TestMap />
       </div>
     </>
   );
