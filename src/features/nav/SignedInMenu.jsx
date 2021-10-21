@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Menu, Image, Dropdown } from "semantic-ui-react";
+import { signOutUser } from "../auth/authActions";
+import { useHistory } from "react-router";
 
 export default function SignedInMenu() {
   const dispatch = useDispatch();

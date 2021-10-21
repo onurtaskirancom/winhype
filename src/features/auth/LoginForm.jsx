@@ -5,6 +5,9 @@ import * as Yup from 'yup';
 import MyTextInput from '../../app/common/form/MyTextInput';
 import { Button } from 'semantic-ui-react';
 import { useDispatch } from 'react-redux';
+import { closeModal } from '../../app/common/modals/modalReducer';
+import { signInUser } from './authActions';
+
 
 
 export default function LoginForm() {

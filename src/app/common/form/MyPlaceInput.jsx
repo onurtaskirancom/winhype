@@ -1,6 +1,6 @@
 import { useField } from "formik";
 import React from "react";
-import { FormField, Label } from "semantic-ui-react";
+import { FormField, Label, List, Segment } from "semantic-ui-react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -12,7 +12,7 @@ export default function MyPlaceInput({ label, options, ...props }) {
   function handleSelect(address) {
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
-      .then((latLng) => helpers.setValue({ adress, latLng }))
+      .then((latLng) => helpers.setValue({ address, latLng }))
       .catch((error) => helpers.setError(error));
   }
 
