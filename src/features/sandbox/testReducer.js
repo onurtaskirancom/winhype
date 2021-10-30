@@ -1,4 +1,6 @@
 import { asyncActionError, asyncActionFinish, asyncActionStart } from "../../app/async/asyncReducer";
+import { delay } from '../../app/common/util/util';
+import {toast} from 'react-toastify';
 
 const INCREMENT_COUNTER = "INCREMENT_COUNTER";
 const DECREMENT_COUNTER = "DECREMENT_COUNTER";
@@ -24,7 +26,8 @@ export function decrement(amount) {
       dispatch({type: DECREMENT_COUNTER, payload: amount});
       dispatch(asyncActionFinish());
     } catch (error) {
-      dispatch(asyncActionError(error))
+      dispatch(asyncActionError(error));
+      toast.error(error);
     }
   }
   
