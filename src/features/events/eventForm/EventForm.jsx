@@ -55,12 +55,13 @@ export default function EventForm({ match, history }) {
   });
 
   useFirestoreDoc({
+    shouldExecute: !!match.params.id,
     query: () => listenToEventFromFirestore(match.params.id),
     data: (event) => dispatch(listenToEvents([event])),
     deps: [match.params.id, dispatch],
   });
 
-  if (loading || (!selectedEvent && !error))
+  if (loading)
     return <LoadingComponent content='Loading Event...' />;
 
   if (error) return <Redirect to='/error' />;
@@ -101,9 +102,9 @@ export default function EventForm({ match, history }) {
               disabled={!values.city.latLng}
               placeholder='Venue'
               options={{
-                location: new google.com.maps.latLng(values.city.latLng),
+                location: new google.maps.LatLng(values.city.latLng),
                 radius: 1000,
-                types: ["establishment"],
+                types: ['establishment'],
               }}
             />
             <MyDateInput
